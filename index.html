@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sardar IT Reference Engine & Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="icon.png">
+  <script src="lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- DASHBOARD CONTAINER -->
+  <div class="dashboard-container">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-wrapper">
+          <img src="icon.png" alt="Sardar IT Logo" class="brand-logo">
+          <div class="brand-pulse"></div>
+        </div>
+        <div class="brand-text">
+          <h2>Sardar IT</h2>
+          <span>Ref Engine v2.0</span>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-target="view-generator" title="Sardar IT Proposal Generator">
+          <i data-lucide="zap"></i>
+          <span>AI Generator</span>
+        </button>
+        <button class="nav-item" data-target="view-portfolio" title="Portfolio Explorer">
+          <i data-lucide="database"></i>
+          <span>Portfolio Database</span>
+        </button>
+        <button class="nav-item" data-target="view-history" title="Proposal History">
+          <i data-lucide="history"></i>
+          <span>History Log</span>
+        </button>
+        <button class="nav-item" data-target="view-settings" title="Configuration Settings">
+          <i data-lucide="settings"></i>
+          <span>Settings</span>
+        </button>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="status-indicator">
+          <span class="status-dot status-dot--loading" id="status-dot"></span>
+          <span id="db-status-msg">Loading database…</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN WORKSPACE -->
+    <div class="main-workspace">
+      
+      <!-- HEADER -->
+      <header class="workspace-header">
+        <div class="header-left">
+          <h1 id="view-title">Sardar IT Proposal Generator</h1>
+          <p id="view-subtitle">Generate breif response for Fiverr using Zunaid's local project intelligence</p>
+        </div>
+        
+        <div class="header-actions">
+          <div class="stat-badge" id="project-count-badge">
+            <i data-lucide="layers"></i>
+            <span id="project-count-text">Loading…</span>
+          </div>
+          
+          <button class="icon-button" id="tab-mode-btn" title="Open in Full Browser Tab">
+            <i data-lucide="external-link"></i>
+          </button>
+          
+          <button class="icon-button" id="theme-toggle" title="Toggle Theme Mode">
+            <i data-lucide="moon" id="theme-icon"></i>
+          </button>
+          
+          <button class="icon-button" id="api-key-quick-btn" title="API Configuration">
+            <i data-lucide="key" id="api-key-icon-status"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- PANELS WRAPPER -->
+      <main class="content-viewport">
+
+        <!-- VIEW 1: AI GENERATOR -->
+        <section class="view-panel active-view" id="view-generator">
+          <div class="generator-layout">
+            
+            <!-- LEFT COLUMN: INPUT CONTROLS -->
+            <div class="generator-input-column">
+              
+              <!-- 1st: Client Brief / Requirements -->
+              <div class="dashboard-card card-brief">
+                <div class="card-header">
+                  <div class="card-header-title">
+                    <i data-lucide="file-text"></i>
+                    <h3>Client Brief / Requirements</h3>
+                  </div>
+                  <span class="char-count" id="char-count">0/2000</span>
+                </div>
+                
+                <div class="textarea-wrapper">
+                  <textarea id="brief-input" placeholder="Paste the client's job description, brief details, or select a situation chip above..." maxlength="2000"></textarea>
+                </div>
+
+                <div class="brief-meta">
+                  <span id="word-count" class="badge-lite"><i data-lucide="text"></i> 0 words</span>
+                  <span class="hint">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to generate</span>
+                </div>
+
+                <!-- Customizations inside Generator -->
+                <div class="generator-options-grid">
+                  <div class="form-group">
+                    <label for="proposal-tone"><i data-lucide="message-square"></i> Proposal Tone</label>
+                    <select id="proposal-tone" class="custom-select">
+                      <option value="professional" selected>Professional & Confident</option>
+                      <option value="friendly">Friendly & Warm</option>
+                      <option value="persuasive">Highly Persuasive</option>
+                      <option value="technical">Technical & Detail-Oriented</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="client-name"><i data-lucide="user"></i> Client Name</label>
+                    <input type="text" id="client-name" class="custom-input" placeholder="Optional (e.g. John)">
+                  </div>
+                </div>
+
+                <!-- Run Actions -->
+                <div class="action-grid">
+                  <button class="action-btn action-btn--match" id="find-matches-btn" data-action="match">
+                    <div class="action-btn-content">
+                      <i data-lucide="compass" class="btn-icon"></i>
+                      <div class="btn-text">
+                        <span class="btn-label">Match References</span>
+                        <span class="btn-desc">Find matching items</span>
+                      </div>
+                    </div>
+                  </button>
+                  <button class="action-btn action-btn--proposal" id="btn-proposal" data-action="proposal">
+                    <div class="action-btn-content">
+                      <i data-lucide="wand-2" class="btn-icon"></i>
+                      <div class="btn-text">
+                        <span class="btn-label">Draft Proposal</span>
+                        <span class="btn-desc">Create AI template</span>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2nd: Quick Situation Chips -->
+              <div class="dashboard-card card-situation">
+                <div class="card-header">
+                  <div class="card-header-title">
+                    <i data-lucide="sparkles" class="icon-accent"></i>
+                    <h3>Quick Situations</h3>
+                  </div>
+                  <span class="card-hint">Pre-fill brief</span>
+                </div>
+                <div class="situation-chips" id="situation-chips">
+                  <button class="sit-chip" data-situation="wordpress" data-fill="Client wants a WordPress website for their business with Elementor, contact form, blog, responsive design and SEO.">
+                    <i data-lucide="layout"></i> WordPress
+                  </button>
+                  <button class="sit-chip" data-situation="shopify" data-fill="Client wants a Shopify e-commerce store with product catalog, shopping cart, payment integration, newsletter and clean design.">
+                    <i data-lucide="shopping-bag"></i> Shopify
+                  </button>
+                  <button class="sit-chip" data-situation="need-to-bid" data-fill="Writing a proposal / bidding message for a web development project on Fiverr or Upwork. Full-stack custom build.">
+                    <i data-lucide="send"></i> Custom Bid
+                  </button>
+                  <button class="sit-chip" data-situation="deliver" data-fill="Project is complete and ready for final delivery. Need a professional delivery message for the client.">
+                    <i data-lucide="package-check"></i> Final Delivery
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3rd: Database Filter -->
+              <div class="dashboard-card card-filter">
+                <div class="card-header">
+                  <div class="card-header-title">
+                    <i data-lucide="filter"></i>
+                    <h3>Database Filter</h3>
+                  </div>
+                  <span class="card-hint" id="projects-loaded-stat">0 projects</span>
+                </div>
+                <div class="category-filter-bar" id="category-filter-bar">
+                  <button class="cat-chip cat-chip--active" data-cat="All">All Projects</button>
+                </div>
+              </div>
+
+              <!-- 4th: Pricing & Timeline Card -->
+              <div class="dashboard-card card-pricing">
+                <div class="card-header">
+                  <div class="card-header-title">
+                    <i data-lucide="calculator" class="icon-accent"></i>
+                    <h3>Pricing & Timeline</h3>
+                  </div>
+                  <span class="card-hint">Integrate into proposal</span>
+                </div>
+                <div class="pricing-options">
+                  <div class="form-group" style="margin-bottom: 10px;">
+                    <label for="pricing-mode-select"><i data-lucide="coins"></i> Pricing Structure</label>
+                    <select id="pricing-mode-select" class="custom-select">
+                      <option value="none" selected>No Pricing Details</option>
+                      <option value="fixed">Single Fixed Price</option>
+                      <option value="milestones">Milestone-based Payments</option>
+                    </select>
+                  </div>
+                  
+                  <!-- Fixed Price Input Fields -->
+                  <div id="fixed-price-fields" class="pricing-fields-container" style="display: none;">
+                    <div class="generator-options-grid" style="margin-bottom: 0;">
+                      <div class="form-group">
+                        <label for="pricing-fixed-amount">Budget / Amount</label>
+                        <input type="text" id="pricing-fixed-amount" class="custom-input" placeholder="e.g. $500">
+                      </div>
+                      <div class="form-group">
+                        <label for="pricing-fixed-duration">Delivery Time</label>
+                        <input type="text" id="pricing-fixed-duration" class="custom-input" placeholder="e.g. 7 days">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Milestones Pricing Fields -->
+                  <div id="milestone-pricing-fields" class="pricing-fields-container" style="display: none;">
+                    <div class="milestones-list" id="pricing-milestones-list">
+                      <!-- Dynamic Milestone Rows Added via JavaScript -->
+                    </div>
+                    <button type="button" id="pricing-add-milestone-btn" class="project-btn-copy" style="width: 100%; justify-content: center; margin-top: 8px; border-style: dashed;">
+                      <i data-lucide="plus"></i> Add Milestone Row
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: OUTPUT VIEW -->
+            <div class="generator-output-column">
+              <!-- System Logic card -->
+              <div class="dashboard-card card-system-logic">
+                <div class="card-header" style="margin-bottom: 8px;">
+                  <div class="card-header-title">
+                    <i data-lucide="cpu" class="icon-accent"></i>
+                    <h3>System Logic</h3>
+                  </div>
+                </div>
+                <div class="system-logic-grid">
+                  <div class="logic-row">
+                    <span class="logic-label">Brief Analysis</span>
+                    <span class="logic-value" id="logic-brief-analysis">N/A</span>
+                  </div>
+                  <div class="logic-row">
+                    <span class="logic-label">Industry</span>
+                    <span class="logic-value" id="logic-industry">N/A</span>
+                  </div>
+                  <div class="logic-row">
+                    <span class="logic-label">Template Selected</span>
+                    <span class="logic-value" id="logic-template-selected">N/A</span>
+                  </div>
+                  <div class="logic-row font-dense">
+                    <span class="logic-label">Database Matches</span>
+                    <div class="logic-value" id="logic-database-matches">N/A</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Generated Result & Matched Links Card -->
+              <div class="dashboard-card card-output">
+                <div class="output-tabs">
+                  <button class="output-tab active" id="tab-references" data-output-tab="output">
+                    <i data-lucide="scroll"></i>
+                    <span>Generated Result</span>
+                  </button>
+                  <button class="output-tab" id="tab-matched-details" data-output-tab="details" style="display:none;">
+                    <i data-lucide="link-2"></i>
+                    <span>Matched Links</span>
+                  </button>
+                  <div class="tab-spacer"></div>
+                  <div class="output-actions">
+                    <button class="icon-button small" id="copy-output-btn" title="Copy Output to Clipboard">
+                      <i data-lucide="clipboard"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="output-viewport">
+                  <div class="output-content" id="output-content">
+                    <div class="empty-state">
+                      <div class="empty-icon-pulse">
+                        <i data-lucide="database" class="empty-icon"></i>
+                      </div>
+                      <h4>Engine Ready</h4>
+                      <p>Over 560+ Sardar IT references loaded. Paste a brief and tap <strong>Draft Proposal</strong> to generate a custom proposal.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- VIEW 2: PORTFOLIO EXPLORER -->
+        <section class="view-panel" id="view-portfolio">
+          <div class="portfolio-explorer-layout">
+            
+            <!-- STATS OVERVIEW CARDS -->
+            <div class="portfolio-stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon-wrapper color-indigo">
+                  <i data-lucide="archive"></i>
+                </div>
+                <div class="stat-data">
+                  <h4 id="stat-total-projects">1846</h4>
+                  <p>Total References</p>
+                </div>
+              </div>
+              
+              <div class="stat-card">
+                <div class="stat-icon-wrapper color-green">
+                  <i data-lucide="tag"></i>
+                </div>
+                <div class="stat-data">
+                  <h4 id="categories-count-stat">8</h4>
+                  <p>Active Categories</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon-wrapper color-orange">
+                  <i data-lucide="code-2"></i>
+                </div>
+                <div class="stat-data">
+                  <h4 id="stat-tech-count">12+</h4>
+                  <p>Tech Frameworks</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SEARCH AND FILTER CONTROLS -->
+            <div class="explorer-filter-card dashboard-card">
+              <div class="filter-controls-row">
+                <div class="search-input-wrapper">
+                  <i data-lucide="search" class="search-icon"></i>
+                  <input type="text" id="portfolio-search-input" placeholder="Search by tech, category, keywords, features, URL...">
+                  <button class="clear-search-btn" id="clear-search-btn" style="display:none;">&times;</button>
+                </div>
+                
+                <div class="filter-dropdowns">
+                  <select id="portfolio-category-select" class="custom-select filter-select">
+                    <option value="All">All Categories</option>
+                  </select>
+                  
+                  <select id="portfolio-tech-select" class="custom-select filter-select">
+                    <option value="All">All Technologies</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="category-pills-row" id="portfolio-category-pills">
+                <!-- Dynamically populated category badges with counts -->
+              </div>
+            </div>
+
+            <!-- PROJECTS LIST GRID -->
+            <div class="portfolio-results-header">
+              <span id="results-count-text">Showing 1846 projects</span>
+              <span class="results-scroll-tip"><i data-lucide="mouse-pointer"></i> Scroll to load more</span>
+            </div>
+
+            <div class="portfolio-scroll-container" id="portfolio-grid-container">
+              <div class="portfolio-grid" id="portfolio-cards-grid">
+                <!-- Dynamically loaded project cards via javascript -->
+              </div>
+              <div class="loading-trigger" id="portfolio-loading-trigger">
+                <div class="spinner"></div>
+                <span>Loading more references...</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- VIEW 3: SESSION HISTORY LOG -->
+        <section class="view-panel" id="view-history">
+          <div class="history-layout">
+            <div class="history-sidebar dashboard-card">
+              <div class="card-header">
+                <div class="card-header-title">
+                  <i data-lucide="clock"></i>
+                  <h3>Recent Generations</h3>
+                </div>
+                <button class="btn-text-danger" id="clear-history-btn">Clear All</button>
+              </div>
+              
+              <div class="history-list" id="history-items-list">
+                <!-- Dynamically filled with past runs -->
+                <div class="empty-state">
+                  <i data-lucide="history" class="empty-icon"></i>
+                  <p>No proposals generated yet in this session.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="history-details-pane dashboard-card">
+              <div class="history-detail-header" id="history-detail-header" style="display:none;">
+                <div class="history-detail-meta">
+                  <span class="badge-cat" id="history-detail-category">WordPress</span>
+                  <span class="time-stamp" id="history-detail-time">June 6, 2:00 AM</span>
+                </div>
+                <div class="history-detail-actions">
+                  <button class="action-btn-small" id="history-load-brief-btn"><i data-lucide="rotate-ccw"></i> Restore Brief</button>
+                  <button class="action-btn-small action-btn-small--success" id="history-copy-proposal-btn"><i data-lucide="clipboard"></i> Copy Draft</button>
+                </div>
+              </div>
+
+              <div class="history-detail-content" id="history-detail-workspace">
+                <div class="empty-state">
+                  <i data-lucide="file-search" class="empty-icon"></i>
+                  <h4>Select a History Item</h4>
+                  <p>Choose an item from the sidebar to view details, restore the prompt, or copy the generated text.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: CONFIGURATION SETTINGS -->
+        <section class="view-panel" id="view-settings">
+          <div class="settings-layout">
+            
+            <div class="settings-column">
+              <!-- API Key Card -->
+              <div class="dashboard-card card-settings-item">
+                <div class="card-header">
+                  <div class="card-header-title">
+                    <i data-lucide="key" class="color-yellow"></i>
+                    <h3>Google Gemini AI API Key</h3>
+                  </div>
+                </div>
+                <div class="settings-body">
+                  <p class="settings-desc">This tool uses the free-tier Google Gemini Flash API to parse briefs and draft proposals locally in your browser.</p>
+                  
+                  <div class="api-input-wrapper">
+                    <input type="password" id="settings-api-key" placeholder="AIzaSy...">
+                    <button class="icon-button show-password-btn" id="toggle-show-api-key" title="Show/Hide Key">
+                      <i data-lucide="eye"></i>
+                    </button>
+                  </div>
+                  
+                  <div class="api-help-links">
+                    <a href="https://aistudio.google.com/" target="_blank" class="link-btn"><i data-lucide="external-link"></i> Get a Free API Key from Google AI Studio</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Default Preferences -->
+              <div class="dashboard-card card-settings-item">
+                <div class="card-header">
+                  <div class="card-header-title">
+                    <i data-lucide="sliders" class="color-indigo"></i>
+                    <h3>Proposal Default Settings</h3>
+                  </div>
+                </div>
+                <div class="settings-body">
+                  
+                  <div class="form-group-flex">
+                    <div class="form-group select-half">
+                      <label for="settings-default-model">Gemini Model</label>
+                      <select id="settings-default-model" class="custom-select">
+                        <option value="gemini-flash-latest" selected>Gemini Flash Latest (Fast, Recommended)</option>
+                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Precise, Slower)</option>
+                      </select>
+                    </div>
+                    
+                    <div class="form-group select-half">
+                      <label for="settings-default-tone">Default Proposal Tone</label>
+                      <select id="settings-default-tone" class="custom-select">
+                        <option value="professional" selected>Professional & Confident</option>
+                        <option value="friendly">Friendly & Warm</option>
+                        <option value="persuasive">Highly Persuasive</option>
+                        <option value="technical">Technical & Detail-Oriented</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="settings-signature">Default Proposal Signature</label>
+                    <input type="text" id="settings-signature" class="custom-input" placeholder="e.g. Regards, Sardar IT Team" value="Regards,">
+                    <span class="input-hint">This text will be used to sign off generated proposals automatically.</span>
+                  </div>
+                  
+                  <div class="settings-actions">
+                    <button class="settings-save-btn" id="save-settings-btn"><i data-lucide="save"></i> Save Settings</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-column">
+              <!-- System Information / Stats -->
+              <div class="dashboard-card card-settings-item">
+                <div class="card-header">
+                  <div class="card-header-title">
+                    <i data-lucide="info" class="color-green"></i>
+                    <h3>System Information</h3>
+                  </div>
+                </div>
+                <div class="settings-body system-stats-body">
+                  <div class="info-row">
+                    <span class="info-label">Database Version</span>
+                    <span class="info-value text-badge">2.0 (Local JSON)</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Total Curated Projects</span>
+                    <span class="info-value text-badge">1846 References</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Manifest Compliance</span>
+                    <span class="info-value text-badge text-badge--success">Manifest V3 (Offline Ready)</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Developer</span>
+                    <span class="info-value">Sardar IT Development</span>
+                  </div>
+                  
+                  <hr class="divider-lite">
+                  
+                  <h4 class="category-breakdown-heading">Category Distribution</h4>
+                  <div class="category-breakdown-chart" id="settings-category-chart">
+                    <!-- Progress bars dynamically rendered in javascript -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- QUICK API MODAL (Used as a fallback alert if API key is missing during generation) -->
+  <div id="api-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i data-lucide="key" class="color-yellow"></i> Gemini API Key Required</h2>
+        <button class="close-btn" id="close-api-modal">&times;</button>
+      </div>
+      <p class="modal-subtitle">You need a free Google Gemini API key to run proposal generation.</p>
+      
+      <div class="modal-input-wrapper">
+        <input type="password" id="api-key-input" placeholder="Paste your Gemini API Key (AIzaSy...)">
+      </div>
+      
+      <div class="modal-buttons">
+        <a href="https://aistudio.google.com/" target="_blank" class="modal-link-btn"><i data-lucide="external-link"></i> Get Key</a>
+        <button class="action-btn-modal" id="save-api-key">Save Key</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast" aria-live="polite">
+    <i data-lucide="check" class="toast-check-icon"></i>
+    <span id="toast-text">Message copied!</span>
+  </div>
+
+  <!-- DEVELOPER CREDIT FOOTER -->
+  <footer class="developer-credit-footer">
+    🛠️ Tool developed by <span class="dev-name">Zunaid Hasan</span>
+  </footer>
+
+  <div id="popup-resize-handle" class="resize-handle" title="Drag to Resize"></div>
+
+  <script src="database.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
