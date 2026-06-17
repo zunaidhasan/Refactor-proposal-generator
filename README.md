@@ -1,11 +1,11 @@
-# 🚀 SardarIT Proposal Generator (Browser Extension)
+# 🚀 SardarIT Proposal Generator (Web App)
 
 ## 📖 Project Overview
-The **SardarIT Proposal Generator** is a custom-built, AI-powered Chrome Extension designed to automate and streamline the business development process for SardarIT. By leveraging the free Google Gemini 1.5 Flash API and a proprietary database of 566+ high-quality past projects, this tool instantly transforms raw client briefs into perfectly formatted, highly relevant, and professional project proposals.
+The **SardarIT Proposal Generator** is a custom-built, AI-powered Web Application designed to automate and streamline the business development process for SardarIT. By leveraging the free Google Gemini 1.5 Flash API and a proprietary database of 566+ high-quality past projects, this tool instantly transforms raw client briefs into perfectly formatted, highly relevant, and professional project proposals.
 
 **The Problem:** Writing custom proposals is time-consuming. Manually searching through past projects to find the most relevant portfolio links breaks focus and slows down response times.
 
-**The Solution:** A lightweight browser tool where the user simply pastes a client brief, clicks a button, and receives a complete proposal draft—automatically matched with the top 3 most relevant portfolio items and formatted using SardarIT's proven proposal templates.
+**The Solution:** A lightweight web tool where the user simply pastes a client brief, clicks a button, and receives a complete proposal draft—automatically matched with the top 3 most relevant portfolio items and formatted using SardarIT's proven proposal templates.
 
 ## ✨ Key Features
 
@@ -13,34 +13,33 @@ The **SardarIT Proposal Generator** is a custom-built, AI-powered Chrome Extensi
 - **Dynamic Portfolio Matching:** Semantically searches the 566-project database to find the top 3 most relevant past projects to include as portfolio proof.
 - **Intelligent Template Selection:** Automatically categorizes the brief (WordPress, Full Stack, E-commerce, or Graphics/Design) and selects the corresponding agency template, ensuring consistent branding and messaging.
 - **Zero-Cost Operation:** Built entirely on the free tier of the Google Gemini API—no OpenAI costs or monthly SaaS subscriptions required.
-- **Data Privacy & Speed:** Runs locally in the browser. The database is stored client-side, and API calls are made directly from the user's machine, ensuring speed and privacy.
+- **Data Privacy & Speed:** Runs completely client-side in the browser. The database is stored locally, and API calls are made directly from your browser, ensuring speed and privacy.
 - **One-Click Copy:** Instantly copy the generated proposal to the clipboard for immediate pasting into Upwork, Fiverr, or email.
 
 ## ⚙️ Technical Architecture
 
-The extension is built using standard web technologies and follows Chrome's Manifest V3 standards.
+The application is built using standard web technologies.
 
 - **Frontend:** HTML5, CSS3, Vanilla JavaScript
 - **AI Engine:** Google Gemini 1.5 Flash API (`generativelanguage.googleapis.com`)
 - **Database:** Local JSON array (converted from SardarIT's master CSV)
-- **Browser API:** Chrome Extension API (Manifest V3, `chrome.storage.local`)
+- **State Management:** LocalStorage API
 
 ### File Structure
 
 ```text
 SardarIT-Extension/
 │
-├── manifest.json        # Extension configuration & permissions
-├── popup.html           # UI layout (Input, Output, API key fields)
-├── styles.css           # Clean, responsive styling for the popup
+├── index.html           # Main web interface (Input, Output, API key fields)
+├── styles.css           # Clean, responsive styling
 ├── popup.js             # Core logic: API calls, DOM manipulation, prompt engineering
 ├── database.js          # JSON array of 566 SardarIT projects
-└── icon.png             # Extension branding icon (128x128)
+└── icon.png             # Branding icon
 ```
 
 ## 🔄 How It Works (Workflow)
 
-1. **Input:** The user opens the extension popup and pastes a client brief.
+1. **Input:** The user opens `index.html` and pastes a client brief.
 2. **Context Building:** The JavaScript constructs a mega-prompt containing:
    - The agency's 4 core proposal templates.
    - The condensed 566-project database.
@@ -60,7 +59,6 @@ The AI is strictly instructed to map the client's brief to one of four primary a
 
 ## 🚀 Future Scope (Potential Upgrades)
 
-- **Direct Upwork/Fiverr Integration:** Inject the generated proposal directly into a freelancer platform's message box via content scripts.
 - **Dynamic Pricing Calculator:** Add fields for the user to input hours/price, which the AI automatically weaves into the proposal template.
-- **Cloud Sync Database:** Move `database.js` to Firebase or Supabase so the portfolio updates across devices without needing to update the extension code manually.
-- **Tone Adjuster:** Add a dropdown menu to switch the proposal tone (e.g., Formal, Friendly, Persuasive).
+- **Cloud Sync Database:** Move `database.js` to Firebase or Supabase so the portfolio updates across devices automatically.
+- **Tone Adjuster:** Further refine the tone adjuster dropdown to cover more advanced scenarios.
