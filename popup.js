@@ -165,9 +165,130 @@ Database:\n${dbContext}\n\nUpwork Job Post: ${brief}`;
     // Proposal Generator
     prompt = `You are an expert IT Proposal Writer for SardarIT. Analyze the brief. Match it to the provided Database (pick top 3). Select the correct template (WordPress, Full Stack, E-commerce, or Graphics) and write the proposal.
 
---- TEMPLATES ---
-[PASTE YOUR 4 TEMPLATES HERE - THE SAME ONES FROM PREVIOUS MESSAGES]
-
+   
+    --- TEMPLATES ---
+    
+    --- TEMPLATE 1: WORDPRESS ---
+    (Use this for WordPress, CMS, Elementor, blog, corporate sites)
+    
+    Hello there,
+    
+    I’ve carefully reviewed your requirements and fully understand the scope of work for [insert specific scope from brief].
+    I assure you that I can help make the necessary tweaks to your existing website while also handling the graphic design tasks to keep your store visually appealing and aligned with your brand.
+    
+    Here’s what I’ll take care of:
+    - [Insert specific deliverable from brief]
+    - [Insert specific deliverable from brief]
+    - Enhance the website's visual appeal and navigation
+    - Optimize site performance for faster loading and smoother navigation
+    - Fully responsive design across desktop, laptop, tablet, and mobile
+    
+    Additional benefits from my side:
+    - Provide instructional videos on how you can manage your products, services, and content.
+    - Unlimited revisions until you're satisfied
+    
+    Requirements: I’ll need access to your WordPress admin dashboard login credentials.
+    
+    Here are some recent WordPress projects I’ve completed for my clients:
+    [Insert Matched Project 1 URL] ([Insert Matched Project 1 Best_For/Strengths])
+    [Insert Matched Project 2 URL] ([Insert Matched Project 2 Best_For/Strengths])
+    [Insert Matched Project 3 URL] ([Insert Matched Project 3 Best_For/Strengths])
+    
+    Please feel free to review them and let me know if you have any preferences or questions. I’m excited to collaborate.
+    
+    Best regards,
+    [Signature]
+    
+    --- TEMPLATE 2: FULL STACK ---
+    (Use this for custom web apps, databases, SaaS, dashboard systems)
+    
+    Hello there,
+    
+    Hope you are doing well.
+    As a professional Full Stack Web Developer with over 6+ years of experience. I specialize in custom platform design, backend architecture, and secure database development. I am always proficient in swiftly resolving issues and ensuring flawless functionality.
+    I assure you that I’ll be able to develop your platform into a polished, professional, and user-friendly system.
+    
+    For this project, we should have the following core areas and pages:
+    - [Insert relevant pages from brief, e.g., User Frontend, Admin Backend, Authentication]
+    
+    Please let me know if you want to add/remove any other pages. Also, I’ll do the following things:
+    - Develop responsive front-end features with a modern, intuitive layout
+    - Design and implement interactive user profiles and dashboards
+    - Set up a scalable backend database structure
+    - Establish secure authentication and user permissions
+    
+    I’ll need access to your current platform/hosting, existing database schema, and any documentation.
+    
+    Here are some custom authentication platforms and dashboards I’ve developed:
+    [Insert Matched Project 1 URL] ([Insert Matched Project 1 Best_For/Strengths])
+    [Insert Matched Project 2 URL] ([Insert Matched Project 2 Best_For/Strengths])
+    [Insert Matched Project 3 URL] ([Insert Matched Project 3 Best_For/Strengths])
+    
+    Please review the details and let me know if you are ready to move forward.
+    
+    Looking forward to working with you.
+    Best regards,
+    [Signature]
+    
+    --- TEMPLATE 3: E-COMMERCE ---
+    (Use this for Shopify, WooCommerce, carts, products checkouts)
+    
+    Hello there,
+    
+    I’ve reviewed your requirements and understand that you're looking to build a professional e-commerce platform. I’d be happy to help you create a clean, modern, and high-performance platform.
+    
+    Here’s what I will provide:
+    - Complete e-commerce platform development
+    - Professional product gallery to showcase past work
+    - Clean, modern & user-friendly design
+    - Smooth cart & checkout experience
+    - Fully mobile-responsive design (all devices)
+    
+    Additional Benefits I'll Provide:
+    - Unlimited revisions
+    - 30 days post-delivery support
+    
+    Here are some fully functional e-commerce websites I’ve developed:
+    [Insert Matched Project 1 URL] ([Insert Matched Project 1 Best_For/Strengths])
+    [Insert Matched Project 2 URL] ([Insert Matched Project 2 Best_For/Strengths])
+    [Insert Matched Project 3 URL] ([Insert Matched Project 3 Best_For/Strengths])
+    
+    I’m confident I can deliver a visually impressive and functional platform.
+    
+    Feel free to reach out if you’d like to move forward.
+    
+    Regards,
+    [Signature]
+    
+    --- TEMPLATE 4: GRAPHICS / DESIGN ---
+    (Use this for logo design, branding, visual identity, pure design)
+    
+    Hello there,
+    
+    Thanks for sharing your project details. I’d be happy to help you design a modern, user-friendly store/site that clearly represents your brand and works seamlessly.
+    
+    Here's what I'll provide:
+    - Design a clean, visually appealing store/site
+    - Apply your branding, color scheme, and visual identity 
+    - Ensure full responsiveness (desktop, tablet, mobile)
+    - On-page SEO and speed optimization
+    - Unlimited revisions
+    - 30 Days of free support after delivering the project
+    
+    Requirements:
+    - Logo design instructions & visual references
+    - Content for the store
+    
+    Here are some of my work samples:
+    [Insert Matched Project 1 URL] ([Insert Matched Project 1 Best_For/Strengths])
+    [Insert Matched Project 2 URL] ([Insert Matched Project 2 Best_For/Strengths])
+    [Insert Matched Project 3 URL] ([Insert Matched Project 3 Best_For/Strengths])
+    
+    Looking forward to discussing your ideas.
+    
+    Best regards,
+    [Signature]
+    
 --- RULES ---
 - Never invent URLs. Only use URLs from the database.
 - Always provide exactly 3 portfolio links at the bottom.
